@@ -1,4 +1,6 @@
 let choices = ["Rock","Paper","Scissors"];
+let playerPoints = 0;
+let computerPoints = 0;
 function getComputerChoice() {
     selected = Math.floor(Math.random()*choices.length);
     computerMove = choices[selected];
@@ -9,13 +11,32 @@ function gameRound(playerSelection, computerSelection){
     computerWins = computerSelection === "rock" && playerSelection === "scissors" || computerSelection === "scissors" && playerSelection === "paper" || computerSelection === "paper" && playerSelection === "rock";
     
     if (playerWins){
-        return `You Win! ${playerSelection} beats ${computerSelection}.`;
+        console.log(`You Win the round! ${playerSelection} beats ${computerSelection}.`);
+        playerPoints++;
     } else if (computerWins){
-        return `You Lose! ${computerSelection} beats ${playerSelection}.`;
+        console.log(`You Lose the round! ${computerSelection} beats ${playerSelection}.`);
+        computerPoints++;
     } else {
-        return `It's a Tie, ${playerSelection} draws ${computerSelection}`;
+        console.log(`This round is a tie, ${playerSelection} draws ${computerSelection}`);
     }
 }
-let playerSelection = prompt("Make your choice young Padowan! Enter Rock, Paper or Scissors", "").toLowerCase();
-let computerSelection = getComputerChoice();
-console.log(gameRound(playerSelection, computerSelection));
+function playGame(){
+    
+    console.log(`player Points : ${playerPoints}, Computer Points : ${computerPoints}`);
+    for(let i=1;i<=5;i++){
+        console.log(`Round ${i}`);
+        let playerSelection = prompt("Make your choice young Padowan! Enter Rock, Paper or Scissors", "").toLowerCase();
+        let computerSelection = getComputerChoice();
+        gameRound(playerSelection, computerSelection);
+        console.log(`player Points : ${playerPoints}, Computer Points : ${computerPoints}`);
+    }
+    if (playerPoints > computerPoints){
+        return "Congrats! You Won the Game.";
+    } else if (computerPoints > playerPoints){
+        return "Alas! You Lost the Game."
+    } else {
+        return "The Game is a Tie.";
+    }
+}
+
+console.log(playGame());
